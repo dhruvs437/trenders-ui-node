@@ -23,7 +23,6 @@ const ProductCard = ({product,type,deleteProduct,orderedDate}) => {
     const [add, setAdd] = useState(true);
 
     let {loading,status,userInfo,isAdmin} = useSelector((state)=>state.userDetailsReducer);
-    const [email, setEmail] = useState("");
     const [error, setError] = useState('none');
     const [successToAddToWhilist, setSuccessToAddToWhilist] = useState('none');
     const [successToRemoveToWhilist, setSuccessToRemoveToWhilist] = useState('none');
@@ -36,7 +35,6 @@ const ProductCard = ({product,type,deleteProduct,orderedDate}) => {
 
     useEffect(() => {
         if(!loading && status==200 && !isAdmin){
-            setEmail(userInfo.email);
             if(userInfo.whilist.includes(product.productId)){
                 like.current.classList.add('liked');
                 setAdd(false);
@@ -57,7 +55,7 @@ const ProductCard = ({product,type,deleteProduct,orderedDate}) => {
         if(status!=200){
             navigate('/login');
         }else{
-            const res =  await AddToWhilist(email,product.productId,add);
+            const res =  await AddToWhilist(product.productId,add);
             if(add){
                 like.current.classList.add('liked');
             }else{

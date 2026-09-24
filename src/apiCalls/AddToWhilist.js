@@ -1,13 +1,15 @@
 import { server_url } from "../information/backend_url";
-export const AddToWhilist = async(email,productId,add)=>{
+import { getAuthHeader } from "../information/authHeader";
+export const AddToWhilist = async(productId,add)=>{
     try{
         const res = await fetch(`${server_url}/api/addToWhilist`,{
             method:"POST",
             headers:{
                 'Content-Type':'application/json',
+                ...getAuthHeader()
             },
             body:JSON.stringify({
-                email:email,productId:productId,add:add
+                productId:productId,add:add
             })
         });
        return res;

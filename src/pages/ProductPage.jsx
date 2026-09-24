@@ -35,7 +35,6 @@ const ProductPage = ({}) => {
         pincode:"",name:"",comment:"",rating:0
     })
 
-    const [email, setEmail] = useState("");
     const [details, setDetails] = useState([]);
     const [availableForPincode, setAvailableForPincode] = useState(null);
 
@@ -87,7 +86,6 @@ const ProductPage = ({}) => {
 
     useEffect(() => {
         if(loading===false && status==200){
-            setEmail(userInfo.email);
             let array = findProductIdsArray(userInfo.cart);
             if(array.includes(id)){
                 setIsProductInCartAlready(true);
@@ -96,7 +94,7 @@ const ProductPage = ({}) => {
             }
         }
         fetchProductDetails();
-    }, [loading,email,isProductInCartAlready])
+    }, [loading,isProductInCartAlready])
 
 
     // add to cart 
@@ -104,7 +102,7 @@ const ProductPage = ({}) => {
     const [successToAddToCart, setSuccessToAddToCart] = useState('none')
     const addToMyCart = async ()=>{
         if(status==200){
-            const res = await AddToCart(email,details.productId,true,1,'add');
+            const res = await AddToCart(details.productId,true,1,'add');
             if(res.status==200){
                 setSuccessToAddToCart('flex');
                 setTimeout(() => {

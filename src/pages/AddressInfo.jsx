@@ -87,7 +87,7 @@ const AddressInfo = () => {
             setIncompleteAlert('block');
         }else{
             setIncompleteAlert('none');
-            const res = await AddressInfoRequest(userInfo.email,inputs.name,inputs.phone,inputs.address,inputs.locality,inputs.city,inputs.pin,inputs.state);
+            const res = await AddressInfoRequest(inputs.name,inputs.phone,inputs.address,inputs.locality,inputs.city,inputs.pin,inputs.state);
             if(res.status==200){
                 if(sessionStorage.getItem('orderCart')){
                     navigate('/payment');

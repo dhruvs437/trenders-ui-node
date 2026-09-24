@@ -23,7 +23,6 @@ import '../styles/cartProductCard.css'
 const CartProductCard = ({product,type,changeQty,removeFromOrder}) => {
 
     let {loading,status,userInfo} = useSelector((state)=>state.userDetailsReducer);
-    const [email, setEmail] = useState([]);
 
     const [successToRemoveFromCart, setSuccessToRemoveFromCart] = useState('none');
     const [outOfStock, setOutOfStock] = useState('none')
@@ -47,8 +46,7 @@ const CartProductCard = ({product,type,changeQty,removeFromOrder}) => {
 
     useEffect(() => {
         if(!loading && status==200){
-            setEmail(userInfo.email);   
-            setQty(findQty(product.productId,userInfo.cart));   
+            setQty(findQty(product.productId,userInfo.cart));
         }
     }, [loading,qty])
 
@@ -58,7 +56,7 @@ const CartProductCard = ({product,type,changeQty,removeFromOrder}) => {
         e.stopPropagation();
         e.preventDefault();
         if(type=='cart'){
-            const res =  await AddToCart(email,product.productId,false,'update');
+            const res =  await AddToCart(product.productId,false,'update');
              if(res.status==200){
                  setSuccessToRemoveFromCart('flex');
                  setTimeout(() => {
@@ -81,7 +79,7 @@ const CartProductCard = ({product,type,changeQty,removeFromOrder}) => {
         e.preventDefault();
         if(type=='cart'){
             if(qty<product.stock){
-                AddToCart(email,product.productId,true,qty+1,'update');
+                AddToCart(product.productId,true,qty+1,'update');
                 loadAllData();
             }else{
                 setOutOfStock('flex');
@@ -105,7 +103,7 @@ const CartProductCard = ({product,type,changeQty,removeFromOrder}) => {
         e.preventDefault();
         if(type=='cart'){
             if(qty>1){
-                AddToCart(email,product.productId,true,qty-1,'update');
+                AddToCart(product.productId,true,qty-1,'update');
                 loadAllData();
             }
         }else{

@@ -1,13 +1,15 @@
 import { server_url } from "../information/backend_url";
-export const AddToCart = async(email,productId,add,qty,type)=>{
+import { getAuthHeader } from "../information/authHeader";
+export const AddToCart = async(productId,add,qty,type)=>{
     try{
         const res = await fetch(`${server_url}/api/addToCart`,{
             method:"POST",
             headers:{
                 'Content-Type':'application/json',
+                ...getAuthHeader()
             },
             body:JSON.stringify({
-                email:email,productId:productId,add:add,qty:qty,type:type
+                productId:productId,add:add,qty:qty,type:type
             })
         });
        return res
