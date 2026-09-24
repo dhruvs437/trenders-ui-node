@@ -30,7 +30,7 @@ const Signup = () => {
     }
 
     const [inputs, setInputs] = useState({
-        email:"",password:"",otp:"",sendedOtp:"",
+        email:"",password:"",otp:"",
     })
     let key,val;
     const handleChange = (e)=>{
@@ -54,9 +54,7 @@ const Signup = () => {
         }else{
             setValidEmailDisplay('none');
             let res = await SendEmail(inputs.email,'signup');
-            let data = await res.json();
             if(res.status==200){
-                setInputs({...inputs,'sendedOtp':(data.otp).toString()});
                 setPasswordSection(true);
                 setEmailSection(false);
                 setUserExistError('none');
@@ -74,7 +72,7 @@ const Signup = () => {
     }
 
     const register = async ()=>{
-        let res = await SignupRequest(inputs.email,inputs.password,inputs.sendedOtp,inputs.otp);
+        let res = await SignupRequest(inputs.email,inputs.password,inputs.otp);
         if(res.status==201){
             let token = await res.json();
             token = token.token;

@@ -1,5 +1,5 @@
 import { server_url } from "../information/backend_url";
-export const ForgotPasswordRequest = async(email,password,sendedOtp,otp)=>{
+export const ForgotPasswordRequest = async(email,password,otp)=>{
     try{
         const res = await fetch(`${server_url}/api/forgotPassword`,{
             method:"POST",
@@ -7,7 +7,7 @@ export const ForgotPasswordRequest = async(email,password,sendedOtp,otp)=>{
                 'Content-Type':'application/json',
             },
             body:JSON.stringify({
-                email:email,password:password,sendedOtp:sendedOtp,otp:otp
+                email:email,password:password,otp:otp
             })
         });
         let data = await res;

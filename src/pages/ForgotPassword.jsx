@@ -29,7 +29,7 @@ const ForgotPassword = () => {
     }
 
     const [inputs, setInputs] = useState({
-        email:"",password:"",otp:"",sendedOtp:"",
+        email:"",password:"",otp:"",
     })
     let key,val;
     const handleChange = (e)=>{
@@ -54,9 +54,7 @@ const ForgotPassword = () => {
         }else{
             setValidEmailDisplay('none');
             let res = await SendEmail(inputs.email,'forgotPassword');
-            let data = await res.json();
             if(res.status==200){
-                setInputs({...inputs,'sendedOtp':(data.otp).toString()});
                 setPasswordSection(true);
                 setNotExist('none');
                 setEmailSection(false);
@@ -74,7 +72,7 @@ const ForgotPassword = () => {
     const changePassword = async ()=>{
         console.log('clicked')
         try{
-            let res = await ForgotPasswordRequest(inputs.email,inputs.password,inputs.sendedOtp,inputs.otp);
+            let res = await ForgotPasswordRequest(inputs.email,inputs.password,inputs.otp);
             if(res.status==200){
                 setAlertBox('flex');
             }else if(res.status==202){
