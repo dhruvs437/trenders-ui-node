@@ -149,7 +149,7 @@ const Payment = () => {
 		const resOfGeneratingOrderId = await GenerateOrderId(totalPrice);
 		let orderId = resOfGeneratingOrderId.id;
 		const options = {
-			"key": "rzp_test_eycFmFW3KelSBN",
+			"key": process.env.REACT_APP_RAZORPAY_KEY_ID,
 			"amount": totalPrice*100, 
 			"currency": "INR",
 			"name": userInfo.name,
